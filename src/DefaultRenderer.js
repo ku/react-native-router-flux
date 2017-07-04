@@ -12,6 +12,7 @@ import React, {
 } from 'react';
 import {
   Animated,
+  Easing,
   View,
   StyleSheet,
   Dimensions,
@@ -307,6 +308,7 @@ export default class DefaultRenderer extends Component {
     const selected = navigationState.children[navigationState.index];
     const applyAnimation = selected.applyAnimation || navigationState.applyAnimation;
     const style = selected.style || navigationState.style;
+    const easing = selected.easing || Easing.inOut(Easing.ease)
 
     if (applyAnimation) {
       optionals.applyAnimation = applyAnimation;
@@ -318,7 +320,7 @@ export default class DefaultRenderer extends Component {
           if (duration === 0) {
             pos.setValue(navState.index);
           } else {
-            Animated.timing(pos, { toValue: navState.index, duration }).start();
+            Animated.timing(pos, { toValue: navState.index, duration, easing }).start();
           }
         };
       }
